@@ -4,7 +4,7 @@
 // This function represents our software safety design logic
 int control_vault(int fire, int armed) {
     if (fire && armed) {
-        return 1; // System Active (Fire Suppression Triggered)
+        return 0; // System Active (Fire Suppression Triggered)
     }
     return 0; // System Off / Standby
 }
