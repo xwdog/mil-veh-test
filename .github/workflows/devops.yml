@@ -1,0 +1,26 @@
+name: DevSecOps Automated Pipeline
+
+# Run this automation every time code is pushed to GitHub
+on: [push]
+
+jobs:
+  build-and-test:
+    # 1. INFRASTRUCTURE: Tell GitHub to spin up a clean virtual Linux machine
+    runs-on: ubuntu-latest
+
+    steps:
+    # 2. GIT: Download your repository code onto that virtual machine
+    - name: Check out repository code
+      uses: actions/checkout@v4
+
+    # 3. STATIC ANALYSIS: Scan the code for warnings/errors before building
+    - name: Run Static Analysis
+      run: gcc -Wall -Wextra -fsyntax-only main.c
+
+    # 4. COMPILATION: Compile the C code into an executable application
+    - name: Compile Code
+      run: gcc main.c -o vault_executable
+
+    # 5. DYNAMIC TESTING: Run the executable to verify our assert tests pass
+    - name: Run Dynamic Unit Tests
+      run: ./vault_executable
